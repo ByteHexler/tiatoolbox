@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{164ca6aa-7adc-4208-9652-c423435e14bf}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>setup.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>CondaEnv|CondaEnv|tiatoolbox</InterpreterId>
+    <SuppressPackageInstallationPrompt>True</SuppressPackageInstallationPrompt>
+    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <SuppressEnvironmentCreationPrompt>True</SuppressEnvironmentCreationPrompt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".deepsource.toml" />
+    <Content Include=".editorconfig" />
+    <Content Include=".github\ISSUE_TEMPLATE.md" />
+    <Content Include=".gitignore" />
+    <Content Include=".git\config" />
+    <Content Include=".git\description" />
+    <Content Include=".git\HEAD" />
+    <Content Include=".git\hooks\applypatch-msg.sample" />
+    <Content Include=".git\hooks\commit-msg.sample" />
+    <Content Include=".git\hooks\fsmonitor-watchman.sample" />
+    <Content Include=".git\hooks\post-update.sample" />
+    <Content Include=".git\hooks\pre-applypatch.sample" />
+    <Content Include=".git\hooks\pre-commit.sample" />
+    <Content Include=".git\hooks\pre-merge-commit.sample" />
+    <Content Include=".git\hooks\pre-push.sample" />
+    <Content Include=".git\hooks\pre-rebase.sample" />
+    <Content Include=".git\hooks\pre-receive.sample" />
+    <Content Include=".git\hooks\prepare-commit-msg.sample" />
+    <Content Include=".git\hooks\push-to-checkout.sample" />
+    <Content Include=".git\hooks\update.sample" />
+    <Content Include=".git\index" />
+    <Content Include=".git\info\exclude" />
+    <Content Include=".git\logs\HEAD" />
+    <Content Include=".git\logs\refs\heads\develop" />
+    <Content Include=".git\logs\refs\remotes\origin\HEAD" />
+    <Content Include=".git\objects\pack\pack-be8b14a26dda7dc4d0533c38ca8379f785250e2f.idx" />
+    <Content Include=".git\objects\pack\pack-be8b14a26dda7dc4d0533c38ca8379f785250e2f.pack" />
+    <Content Include=".git\packed-refs" />
+    <Content Include=".git\refs\heads\develop" />
+    <Content Include=".git\refs\remotes\origin\HEAD" />
+    <Content Include=".pre-commit-config.yaml" />
+    <Content Include=".readthedocs.yml" />
+    <Content Include=".travis.yml" />
+    <Content Include=".vs\slnx.sqlite" />
+    <Content Include=".vs\tiatoolbox\v16\.suo" />
+    <Content Include=".vs\VSWorkspaceState.json" />
+    <Content Include="AUTHORS.md" />
+    <Content Include="CITATION.cff" />
+    <Content Include="CONTRIBUTING.rst" />
+    <Content Include="docs\api.rst" />
+    <Content Include="docs\authors.rst" />
+    <Content Include="docs\contributing.rst" />
+    <Content Include="docs\history.md" />
+    <Content Include="docs\images\advanced-techniques-example.png" />
+    <Content Include="docs\images\geometries.png" />
+    <Content Include="docs\images\her2-prediction-example.png" />
+    <Content Include="docs\images\hovernet-example.png" />
+    <Content Include="docs\images\hovernetplus-example.png" />
+    <Content Include="docs\images\idars-example.png" />
+    <Content Include="docs\images\out_of_bounds_read.png" />
+    <Content Include="docs\images\patch-extraction-example.png" />
+    <Content Include="docs\images\patch-prediction-example.png" />
+    <Content Include="docs\images\read_bounds_tissue.png" />
+    <Content Include="docs\images\read_rect-interpolated-reads.png" />
+    <Content Include="docs\images\read_rect_tissue.png" />
+    <Content Include="docs\images\sematic-segment-example.png" />
+    <Content Include="docs\images\stain-norm-example.png" />
+    <Content Include="docs\images\sub_pixel_reads.png" />
+    <Content Include="docs\images\tissue-mask.png" />
+    <Content Include="docs\images\wsi-reading-1.png" />
+    <Content Include="docs\images\wsi-reading-2.png" />
+    <Content Include="docs\index.rst" />
+    <Content Include="docs\installation.rst" />
+    <Content Include="docs\latex_preamble.tex" />
+    <Content Include="docs\make.bat" />
+    <Content Include="docs\Makefile" />
+    <Content Include="docs\notebooks.rst" />
+    <Content Include="docs\pretrained.rst" />
+    <Content Include="docs\readme.md" />
+    <Content Include="docs\requirements.txt" />
+    <Content Include="docs\tiatoolbox-logo.png" />
+    <Content Include="docs\tia_logo.png" />
+    <Content Include="docs\usage.rst" />
+    <Content Include="docs\_templates\custom-class-template.rst" />
+    <Content Include="docs\_templates\custom-function-template.rst" />
+    <Content Include="docs\_templates\custom-module-template.rst" />
+    <Content Include="examples\.ipynb_checkpoints\01-wsi-reading-checkpoint.ipynb" />
+    <Content Include="examples\.ipynb_checkpoints\02-stain-normalization-checkpoint.ipynb" />
+    <Content Include="examples\.ipynb_checkpoints\03-tissue-masking-checkpoint.ipynb" />
+    <Content Include="examples\.ipynb_checkpoints\04-patch-extraction-checkpoint.ipynb" />
+    <Content Include="examples\.ipynb_checkpoints\05-patch-prediction-checkpoint.ipynb" />
+    <Content Include="examples\.ipynb_checkpoints\06-semantic-segmentation-checkpoint.ipynb" />
+    <Content Include="examples\.ipynb_checkpoints\07-advanced-modeling-checkpoint.ipynb" />
+    <Content Include="examples\.ipynb_checkpoints\08-nucleus-instance-segmentation-checkpoint.ipynb" />
+    <Content Include="examples\01-wsi-reading.ipynb" />
+    <Content Include="examples\02-stain-normalization.ipynb" />
+    <Content Include="examples\03-tissue-masking.ipynb" />
+    <Content Include="examples\04-patch-extraction.ipynb" />
+    <Content Include="examples\05-patch-prediction.ipynb" />
+    <Content Include="examples\06-semantic-segmentation.ipynb" />
+    <Content Include="examples\07-advanced-modeling.ipynb" />
+    <Content Include="examples\08-nucleus-instance-segmentation.ipynb" />
+    <Content Include="examples\09-multi-task-segmentation.ipynb" />
+    <Content Include="examples\2020_E135_AiraMatrix-034.jpg" />
+    <Content Include="examples\full-pipelines\.ipynb_checkpoints\slide-graph-checkpoint.ipynb" />
+    <Content Include="examples\full-pipelines\slide-graph.ipynb" />
+    <Content Include="examples\inference-pipelines\idars.ipynb" />
+    <Content Include="examples\inference-pipelines\slide-graph.ipynb" />
+    <Content Include="examples\Inflammation_AM_034.png" />
+    <Content Include="examples\README.md" />
+    <Content Include="examples\sample_tile_results\0.raw.0.npy" />
+    <Content Include="examples\sample_tile_results\file_map.dat" />
+    <Content Include="HISTORY.md" />
+    <Content Include="LICENSE.md" />
+    <Content Include="Makefile" />
+    <Content Include="MANIFEST.in" />
+    <Content Include="pyproject.toml" />
+    <Content Include="README.md" />
+    <Content Include="requirements.conda.yml" />
+    <Content Include="requirements.dev.conda.yml" />
+    <Content Include="requirements.txt" />
+    <Content Include="requirements.win64.conda.yml" />
+    <Content Include="requirements_dev.txt" />
+    <Content Include="setup.cfg" />
+    <Content Include="tiatoolbox.pyproj" />
+    <Content Include="tiatoolbox\data\pretrained_model.yaml" />
+    <Content Include="tiatoolbox\data\remote_samples.yaml" />
+    <Content Include="tiatoolbox\data\target_image.png" />
+    <Content Include="tiatoolbox\data\visualization\static\css\fontawesome-all.min.css" />
+    <Content Include="tiatoolbox\data\visualization\static\css\ol-ext.min.css" />
+    <Content Include="tiatoolbox\data\visualization\static\css\ol.css" />
+    <Content Include="tiatoolbox\data\visualization\static\js\ol-ext.min.js" />
+    <Content Include="tiatoolbox\data\visualization\static\js\ol.js" />
+    <Content Include="tiatoolbox\data\visualization\static\js\polyfill.min.js" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-brands-400.eot" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-brands-400.svg" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-brands-400.ttf" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-brands-400.woff" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-brands-400.woff2" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-regular-400.eot" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-regular-400.svg" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-regular-400.ttf" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-regular-400.woff" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-regular-400.woff2" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-solid-900.eot" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-solid-900.svg" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-solid-900.ttf" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-solid-900.woff" />
+    <Content Include="tiatoolbox\data\visualization\static\webfonts\fa-solid-900.woff2" />
+    <Content Include="tiatoolbox\data\visualization\templates\index.html" />
+    <Content Include="tox.ini" />
+    <Content Include="whitelist.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="docs\conf.py" />
+    <Compile Include="HE_SS\LoadWsiDataset.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="setup.py" />
+    <Compile Include="tests\conftest.py" />
+    <Compile Include="tests\models\test_abc.py" />
+    <Compile Include="tests\models\test_arch_idars.py" />
+    <Compile Include="tests\models\test_arch_unet.py" />
+    <Compile Include="tests\models\test_arch_utils.py" />
+    <Compile Include="tests\models\test_arch_vanilla.py" />
+    <Compile Include="tests\models\test_dataset.py" />
+    <Compile Include="tests\models\test_feature_extractor.py" />
+    <Compile Include="tests\models\test_hovernet.py" />
+    <Compile Include="tests\models\test_hovernetplus.py" />
+    <Compile Include="tests\models\test_multi_task_segmentor.py" />
+    <Compile Include="tests\models\test_nucleus_instance_segmentor.py" />
+    <Compile Include="tests\models\test_patch_predictor.py" />
+    <Compile Include="tests\models\test_semantic_segmentation.py" />
+    <Compile Include="tests\models\__init__.py" />
+    <Compile Include="tests\test_annotation_stores.py" />
+    <Compile Include="tests\test_data.py" />
+    <Compile Include="tests\test_dsl.py" />
+    <Compile Include="tests\test_exceptions.py" />
+    <Compile Include="tests\test_graph.py" />
+    <Compile Include="tests\test_init.py" />
+    <Compile Include="tests\test_metrics.py" />
+    <Compile Include="tests\test_patch_extraction.py" />
+    <Compile Include="tests\test_pyramid.py" />
+    <Compile Include="tests\test_save_tiles.py" />
+    <Compile Include="tests\test_scale.py" />
+    <Compile Include="tests\test_slide_info.py" />
+    <Compile Include="tests\test_slide_thumbnail.py" />
+    <Compile Include="tests\test_stainaugment.py" />
+    <Compile Include="tests\test_stainnorm.py" />
+    <Compile Include="tests\test_tiatoolbox.py" />
+    <Compile Include="tests\test_tileserver.py" />
+    <Compile Include="tests\test_tissuemask.py" />
+    <Compile Include="tests\test_utils.py" />
+    <Compile Include="tests\test_visualization.py" />
+    <Compile Include="tests\test_wsimeta.py" />
+    <Compile Include="tests\test_wsireader.py" />
+    <Compile Include="tests\__init__.py" />
+    <Compile Include="tiatoolbox\annotation\dsl.py" />
+    <Compile Include="tiatoolbox\annotation\storage.py" />
+    <Compile Include="tiatoolbox\annotation\__init__.py" />
+    <Compile Include="tiatoolbox\cli\nucleus_instance_segment.py" />
+    <Compile Include="tiatoolbox\cli\patch_predictor.py" />
+    <Compile Include="tiatoolbox\cli\read_bounds.py" />
+    <Compile Include="tiatoolbox\cli\save_tiles.py" />
+    <Compile Include="tiatoolbox\cli\semantic_segment.py" />
+    <Compile Include="tiatoolbox\cli\slide_info.py" />
+    <Compile Include="tiatoolbox\cli\slide_thumbnail.py" />
+    <Compile Include="tiatoolbox\cli\stain_norm.py" />
+    <Compile Include="tiatoolbox\cli\tissue_mask.py" />
+    <Compile Include="tiatoolbox\cli\__init__.py" />
+    <Compile Include="tiatoolbox\data\__init__.py" />
+    <Compile Include="tiatoolbox\models\abc.py" />
+    <Compile Include="tiatoolbox\models\architecture\hovernet.py" />
+    <Compile Include="tiatoolbox\models\architecture\hovernetplus.py" />
+    <Compile Include="tiatoolbox\models\architecture\idars.py" />
+    <Compile Include="tiatoolbox\models\architecture\unet.py" />
+    <Compile Include="tiatoolbox\models\architecture\utils.py" />
+    <Compile Include="tiatoolbox\models\architecture\vanilla.py" />
+    <Compile Include="tiatoolbox\models\architecture\__init__.py" />
+    <Compile Include="tiatoolbox\models\dataset\abc.py" />
+    <Compile Include="tiatoolbox\models\dataset\wsiclassification.py" />
+    <Compile Include="tiatoolbox\models\dataset\classification.py" />
+    <Compile Include="tiatoolbox\models\dataset\info.py" />
+    <Compile Include="tiatoolbox\models\dataset\__init__.py" />
+    <Compile Include="tiatoolbox\models\engine\nucleus_instance_segmentor.py" />
+    <Compile Include="tiatoolbox\models\engine\patch_predictor.py" />
+    <Compile Include="tiatoolbox\models\engine\semantic_segmentor.py" />
+    <Compile Include="tiatoolbox\models\engine\__init__.py" />
+    <Compile Include="tiatoolbox\models\__init__.py" />
+    <Compile Include="tiatoolbox\tiatoolbox.py" />
+    <Compile Include="tiatoolbox\tools\graph.py" />
+    <Compile Include="tiatoolbox\tools\patchextractionThres.py" />
+    <Compile Include="tiatoolbox\tools\patchextraction.py" />
+    <Compile Include="tiatoolbox\tools\pyramid.py" />
+    <Compile Include="tiatoolbox\tools\scale.py" />
+    <Compile Include="tiatoolbox\tools\stainaugment.py" />
+    <Compile Include="tiatoolbox\tools\stainextract.py" />
+    <Compile Include="tiatoolbox\tools\stainnorm.py" />
+    <Compile Include="tiatoolbox\tools\tissuemask.py" />
+    <Compile Include="tiatoolbox\tools\__init__.py" />
+    <Compile Include="tiatoolbox\utils\env_detection.py" />
+    <Compile Include="tiatoolbox\utils\exceptions.py" />
+    <Compile Include="tiatoolbox\utils\image.py" />
+    <Compile Include="tiatoolbox\utils\metrics.py" />
+    <Compile Include="tiatoolbox\utils\misc.py" />
+    <Compile Include="tiatoolbox\utils\transforms.py" />
+    <Compile Include="tiatoolbox\utils\visualization.py" />
+    <Compile Include="tiatoolbox\utils\__init__.py" />
+    <Compile Include="tiatoolbox\visualization\tileserver.py" />
+    <Compile Include="tiatoolbox\visualization\__init__.py" />
+    <Compile Include="tiatoolbox\wsicore\save_tiles.py" />
+    <Compile Include="tiatoolbox\wsicore\slide_info.py" />
+    <Compile Include="tiatoolbox\wsicore\wsimeta.py" />
+    <Compile Include="tiatoolbox\wsicore\wsireader.py" />
+    <Compile Include="tiatoolbox\wsicore\__init__.py" />
+    <Compile Include="tiatoolbox\__init__.py" />
+    <Compile Include="tiatoolbox\__main__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git" />
+    <Folder Include=".github" />
+    <Folder Include=".git\hooks" />
+    <Folder Include=".git\info" />
+    <Folder Include=".git\logs" />
+    <Folder Include=".git\logs\refs\" />
+    <Folder Include=".git\logs\refs\heads" />
+    <Folder Include=".git\logs\refs\remotes\" />
+    <Folder Include=".git\logs\refs\remotes\origin" />
+    <Folder Include=".git\objects\" />
+    <Folder Include=".git\objects\pack" />
+    <Folder Include=".git\refs\" />
+    <Folder Include=".git\refs\heads" />
+    <Folder Include=".git\refs\remotes\" />
+    <Folder Include=".git\refs\remotes\origin" />
+    <Folder Include=".vs" />
+    <Folder Include=".vs\tiatoolbox\" />
+    <Folder Include=".vs\tiatoolbox\v16" />
+    <Folder Include="docs" />
+    <Folder Include="docs\images" />
+    <Folder Include="docs\_templates" />
+    <Folder Include="examples" />
+    <Folder Include="examples\.ipynb_checkpoints" />
+    <Folder Include="examples\full-pipelines" />
+    <Folder Include="examples\full-pipelines\.ipynb_checkpoints" />
+    <Folder Include="examples\inference-pipelines" />
+    <Folder Include="examples\sample_tile_results" />
+    <Folder Include="HE_SS\" />
+    <Folder Include="tests" />
+    <Folder Include="tests\models" />
+    <Folder Include="tiatoolbox" />
+    <Folder Include="tiatoolbox\annotation" />
+    <Folder Include="tiatoolbox\cli" />
+    <Folder Include="tiatoolbox\data" />
+    <Folder Include="tiatoolbox\data\visualization\" />
+    <Folder Include="tiatoolbox\data\visualization\static\" />
+    <Folder Include="tiatoolbox\data\visualization\static\css" />
+    <Folder Include="tiatoolbox\data\visualization\static\js" />
+    <Folder Include="tiatoolbox\data\visualization\static\webfonts" />
+    <Folder Include="tiatoolbox\data\visualization\templates" />
+    <Folder Include="tiatoolbox\models" />
+    <Folder Include="tiatoolbox\models\architecture" />
+    <Folder Include="tiatoolbox\models\dataset" />
+    <Folder Include="tiatoolbox\models\engine" />
+    <Folder Include="tiatoolbox\tools" />
+    <Folder Include="tiatoolbox\utils" />
+    <Folder Include="tiatoolbox\visualization" />
+    <Folder Include="tiatoolbox\wsicore" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="CondaEnv|CondaEnv|tiatoolbox" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
