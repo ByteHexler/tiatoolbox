@@ -23,6 +23,8 @@ import os
 import pathlib
 import warnings
 
+from datetime import datetime
+
 import cv2
 import numpy as np
 import PIL
@@ -370,6 +372,7 @@ class WSILabelPatchDataset(abc.PatchDatasetABC):
         self,
         img_paths,
         img_labels=None,
+        class_dict=None,
         mode="wsi",
         mask_paths=None,
         patch_input_shape=None,
@@ -426,13 +429,18 @@ class WSILabelPatchDataset(abc.PatchDatasetABC):
         self.idx_map = []
         self.num_patches = []
 
+        if class_dict is None:
+            class_dict= {l: l for _ in set(img_labels)}
+
         if mask_paths is None:
             mask_paths = [None for _ in range(len(img_paths))]
 
         if not len(mask_paths)==len(img_paths):
                 raise ValueError("number of `mask_paths` must match the number of `img_paths`.")
 
-        for img_idx, (img_path, mask_path) in enumerate(zip(img_paths, mask_paths)):
+        for img_idx, (img_path, mask_path, label) in enumerate(zip(img_paths, mask_paths, img_labels)):
+            print("{} | Working on \"{}\" | Label: \"{}\" \t({}/{})".format(datetime.now().strftime("%X"), img_path, class_dict[label], img_idx+1, len(img_labels)))
+
             # Is there a generic func for path test in toolbox?
             if not os.path.isfile(img_path):
                 raise ValueError("`img_path` must be a valid file path.")
@@ -543,6 +551,7 @@ class WSILabelPatchDataset(abc.PatchDatasetABC):
 
         # Perform check on the input
         self._check_input_integrity(mode="wsi")
+        print("{} | Done".format(datetime.now().strftime("%X")))
 
     def __getitem__(self, idx):
         img_idx = self.idx_map[idx]

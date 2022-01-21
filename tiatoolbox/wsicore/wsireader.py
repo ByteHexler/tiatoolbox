@@ -1155,6 +1155,7 @@ class WSIReader:
 
         """
         thumbnail = self.slide_thumbnail(resolution, units)
+        self.thumbnail = thumbnail
         if method not in ["otsu", "morphological"]:
             raise ValueError(f"Invalid tissue masking method: {method}")
         if method == "otsu":
