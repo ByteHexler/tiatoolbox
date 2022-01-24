@@ -56,9 +56,6 @@
     <Content Include=".pre-commit-config.yaml" />
     <Content Include=".readthedocs.yml" />
     <Content Include=".travis.yml" />
-    <Content Include=".vs\slnx.sqlite" />
-    <Content Include=".vs\tiatoolbox\v16\.suo" />
-    <Content Include=".vs\VSWorkspaceState.json" />
     <Content Include="AUTHORS.md" />
     <Content Include="CITATION.cff" />
     <Content Include="CONTRIBUTING.rst" />
@@ -116,12 +113,10 @@
     <Content Include="examples\07-advanced-modeling.ipynb" />
     <Content Include="examples\08-nucleus-instance-segmentation.ipynb" />
     <Content Include="examples\09-multi-task-segmentation.ipynb" />
-    <Content Include="examples\2020_E135_AiraMatrix-034.jpg" />
     <Content Include="examples\full-pipelines\.ipynb_checkpoints\slide-graph-checkpoint.ipynb" />
     <Content Include="examples\full-pipelines\slide-graph.ipynb" />
     <Content Include="examples\inference-pipelines\idars.ipynb" />
     <Content Include="examples\inference-pipelines\slide-graph.ipynb" />
-    <Content Include="examples\Inflammation_AM_034.png" />
     <Content Include="examples\README.md" />
     <Content Include="examples\sample_tile_results\0.raw.0.npy" />
     <Content Include="examples\sample_tile_results\file_map.dat" />
@@ -168,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="docs\conf.py" />
+    <Compile Include="HE_SS\default_tensorboard.py" />
     <Compile Include="HE_SS\LoadWsiDataset.py">
       <SubType>Code</SubType>
     </Compile>
@@ -287,9 +283,6 @@
     <Folder Include=".git\refs\heads" />
     <Folder Include=".git\refs\remotes\" />
     <Folder Include=".git\refs\remotes\origin" />
-    <Folder Include=".vs" />
-    <Folder Include=".vs\tiatoolbox\" />
-    <Folder Include=".vs\tiatoolbox\v16" />
     <Folder Include="docs" />
     <Folder Include="docs\images" />
     <Folder Include="docs\_templates" />

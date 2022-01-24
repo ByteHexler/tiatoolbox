@@ -25,6 +25,12 @@ import warnings
 
 from datetime import datetime
 
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+from matplotlib import cm
+
+import json
+
 import cv2
 import numpy as np
 import PIL
@@ -35,6 +41,8 @@ from tiatoolbox.tools.patchextractionThres import PatchExtractor
 from tiatoolbox.utils.misc import imread
 from tiatoolbox.wsicore.wsimeta import WSIMeta
 from tiatoolbox.wsicore.wsireader import VirtualWSIReader, get_wsireader
+
+from tiatoolbox.utils.misc import save_as_json
 
 
 class _TorchPreprocCaller:
@@ -375,10 +383,14 @@ class WSILabelPatchDataset(abc.PatchDatasetABC):
         class_dict=None,
         mode="wsi",
         mask_paths=None,
+        save_output=True,
+        save_dir=None,
         patch_input_shape=None,
         stride_shape=None,
         resolution=None,
         units=None,
+        ignore_background=True,
+        background_idx=-1,
         thres=0.5,
         auto_get_mask=True,
         auto_mask_method="otsu",
@@ -423,11 +435,29 @@ class WSILabelPatchDataset(abc.PatchDatasetABC):
         super().__init__()
         self.img_paths = img_paths
         self.img_labels = img_labels
+        self.class_dict = class_dict
+        self.save_dir = save_dir
         self.reader = []
         self.inputs = []
         self.masks = []
         self.idx_map = []
         self.num_patches = []
+        self.num_tissue_patches = []
+        self.patch_input_shape = patch_input_shape
+        self.stride_shape = stride_shape
+        self.resolution = resolution
+        self.units = units
+        self.ignore_background = ignore_background
+        self.background_idx = background_idx
+        self.wsi_labels = list(img_labels)
+
+        if save_output:
+
+            if self.save_dir is None:
+                self.save_dir = os.path.join(os.path.dirname(img_path), "out_data")
+
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir)
 
         if class_dict is None:
             class_dict= {l: l for _ in set(img_labels)}
@@ -440,6 +470,39 @@ class WSILabelPatchDataset(abc.PatchDatasetABC):
 
         for img_idx, (img_path, mask_path, label) in enumerate(zip(img_paths, mask_paths, img_labels)):
             print("{} | Working on \"{}\" | Label: \"{}\" \t({}/{})".format(datetime.now().strftime("%X"), img_path, class_dict[label], img_idx+1, len(img_labels)))
+
+            img_code = os.path.basename(img_path)
+            save_path = os.path.join(str(save_dir), img_code)
+            raw_save_path = f"{save_path}.raw.json"
+
+            if os.path.isfile(raw_save_path):
+                print("Found data of previous run, using existing data... to avoid this behaviour in the future, delete \"{}\"".format(raw_save_path))
+                with open(raw_save_path, 'r') as f:
+                    json_data = json.loads(f.read())
+                self.reader.append(get_wsireader(img_path))
+                self.inputs.append(json_data["coords"])
+                self.img_labels[img_idx] = json_data["label"]
+
+                if self.resolution is not None and self.resolution != json_data["resolution"] or self.units is not None and self.units != json_data["units"]:
+                    print("Warning: different resolutions detected, using most recent...")
+                    self.resolution = json_data["resolution"]
+                    self.units = json_data["units"]
+
+                if self.patch_input_shape != json_data["patch_shape"] or self.stride_shape!=json_data["stride_shape"]:
+                    print("Warning: different patch/stride shapes detected, using most recent...")
+                    self.patch_input_shape = json_data["patch_shape"]
+                    self.stride_shape = json_data["stride_shape"]
+
+                self.idx_map = np.append(self.idx_map, np.full(len(self.inputs[img_idx]), img_idx)).astype(int)
+                
+                self.num_patches.append(len(self.inputs[img_idx]))
+                if type(self.img_labels[img_idx]) != type(3):
+                    self.num_tissue_patches.append(self.img_labels[img_idx].count(label))
+                else: self.num_tissue_patches.append(len(self.inputs[img_idx]))
+
+                self.masks.append(None)
+
+                continue
 
             # Is there a generic func for path test in toolbox?
             if not os.path.isfile(img_path):
@@ -536,27 +599,78 @@ class WSILabelPatchDataset(abc.PatchDatasetABC):
                     units=units,
                     thres=thres,
                 )
-                self.inputs[img_idx] = self.inputs[img_idx][selected]
+                if self.ignore_background:
+                    self.inputs[img_idx] = self.inputs[img_idx][selected]
+                    self.num_patches.append(len(self.inputs[img_idx]))
+                    self.num_tissue_patches.append(len(self.inputs[img_idx]))
+                else:
+                    self.img_labels[img_idx] = np.full(len(self.inputs[img_idx]), background_idx)
+                    self.img_labels[img_idx][selected] = label
+                    self.num_patches.append(self.inputs[img_idx])
+                    self.num_tissue_patches.append(self.img_labels[img_idx][selected])
+
 
             if len(self.inputs[img_idx]) == 0:
                 raise ValueError("No coordinate remain after tiling!")
             self.idx_map = np.append(self.idx_map, np.full(len(self.inputs[img_idx]), img_idx)).astype(int)
-            self.num_patches.append(len(self.inputs[img_idx]))
+
+            if save_output:
+                
+                #save_info["raw"] = raw_save_path
+                output = {
+                    #"path": img_path,
+                    #"wsi_dims": wsi_shape,
+                    "coords": self.inputs[img_idx],
+                    "label": self.img_labels[img_idx],
+                    #"num_patches": self.num_patches[img_idx],
+                    "resolution": self.resolution,
+                    "units": self.units,
+                    #"mask": self.masks[img_idx],
+                    #"thumbnail": self.reader[img_idx].thumbnail,
+                    "patch_shape": self.patch_input_shape,
+                    "stride_shape": self.stride_shape,
+                    }
+                save_as_json(output, raw_save_path)
+                self.overlay_patches(img_idx)
+                #file_dict[str(img_path)] = save_info
         
         #self.inputs = np.vstack(inputs)
-
-        self.patch_input_shape = patch_input_shape
-        self.resolution = resolution
-        self.units = units
 
         # Perform check on the input
         self._check_input_integrity(mode="wsi")
         print("{} | Done".format(datetime.now().strftime("%X")))
 
+    def overlay_patches(self, img_id):
+        fig, ax = plt.subplots()
+        mask = self.masks[img_id]
+        mask = np.ma.masked_where(mask>0.0, 1-mask)
+        img = self.reader[img_id].thumbnail
+        ax.imshow(img)
+        ax.imshow(mask, alpha=0.8, cmap='Reds', vmin=0, vmax=1.3)
+        ax.title.set_text("\"{}\"\nLabel: \"{}\" | Patch number /w tissue: {} | Patch number in total: {}".format(self.img_paths[img_id], self.class_dict[self.wsi_labels[img_id]], self.num_tissue_patches[img_id], self.num_patches[img_id])) #""", self.class_dict[self.wsi_labels[img_id]]"""
+        scale = self.masks[img_id].shape[0]/self.reader[img_id].slide_dimensions(resolution=self.resolution, units=self.units)[1]
+        for i, (x, y) in enumerate(zip(self.inputs[img_id][:,0]*scale, self.inputs[img_id][:,1]*scale)):
+            if type(self.img_labels[img_id]) == type(3) or self.img_labels[img_id][i] != self.background_idx:
+                rect=mpl.patches.Rectangle(
+                    xy=(x, y), width=self.patch_input_shape[0]*scale,
+                    height=self.patch_input_shape[1]*scale,
+                    linewidth=0.5, edgecolor='g', facecolor='none'
+                    ) 
+                ax.add_patch(rect)
+        img_path = self.img_paths[img_id]
+        img_code = os.path.basename(img_path)
+        save_path = os.path.join(str(self.save_dir), img_code+"_sum.png")
+        plt.savefig(save_path)
+        plt.clf()
+
     def __getitem__(self, idx):
         img_idx = self.idx_map[idx]
         patch_idx = idx - sum(self.num_patches[:img_idx])
         coords = self.inputs[img_idx][patch_idx]
+        if type(self.img_labels[img_idx]) != type(3):
+            label = self.img_labels[img_idx][patch_idx]
+        else:
+            label = self.img_labels[img_idx]
         # Read image patch from the whole-slide image
         patch = self.reader[img_idx].read_bounds(
             coords,
@@ -572,7 +686,7 @@ class WSILabelPatchDataset(abc.PatchDatasetABC):
             data = {"image": patch, "coords": np.array(coords), "img_id": img_idx}
             return data
         else:
-            return patch, self.img_labels[img_idx]
+            return patch, label
 
     def __len__(self):
         return sum(self.num_patches)

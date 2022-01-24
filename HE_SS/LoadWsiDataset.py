@@ -45,11 +45,12 @@ un = 'power'
 patch_input_shape=[256, 256]
 stride_shape=[240, 240]
 
-ds = WSILabelPatchDataset(
-    img_paths=wsi_paths[:3],
-    img_labels=labels[:3],
+train_ds = WSILabelPatchDataset(
+    img_paths=wsi_paths[:35],
+    img_labels=labels[:35],
     class_dict=class_dict,
     mode="wsi",
+    save_dir="C:\\Users\\ge63kug\\source\\repos\\tiatoolbox\\HE_SS\\out_data",
     patch_input_shape=patch_input_shape,
     stride_shape=stride_shape,
     #preproc_func=None,
@@ -57,23 +58,27 @@ ds = WSILabelPatchDataset(
     resolution=res,
     units=un,
     thres=0.5,
+    #ignore_background=False,
     #auto_mask_method="morphological",
     #kernel_size = 128,
     #min_region_size = 1000,
 )
 
-def overlay_patches(ds, img_id):
-    fig, ax = plt.subplots()
-    mask = ds.masks[img_id]
-    mask = np.ma.masked_where(mask>0.0, 1-mask)
-    img = ds.reader[img_id].thumbnail
-    ax.imshow(img)
-    ax.imshow(mask, alpha=0.8, cmap='Reds', vmin=0, vmax=1.3)
-    ax.title.set_text("\"{}\"\nLabel: \"{}\" | Patch number:{}".format(ds.img_paths[img_id], class_dict[ds.img_labels[img_id]], ds.num_patches[img_id]))
-    scale = ds.masks[img_id].shape[0]/ds.reader[img_id].slide_dimensions(resolution=res, units=un)[1]
-    for x, y in zip(ds.inputs[img_id][:,0]*scale, ds.inputs[img_id][:,1]*scale):
-         rect=mpl.patches.Rectangle(xy=(x, y), width=patch_input_shape[0]*scale, height=patch_input_shape[1]*scale, linewidth=0.5, edgecolor='g', facecolor='none') 
-         ax.add_patch(rect)
-    plt.show()
-
-overlay_patches(ds, 0)
+test_ds = WSILabelPatchDataset(
+    img_paths=wsi_paths[35:],
+    img_labels=labels[35:],
+    class_dict=class_dict,
+    mode="wsi",
+    save_dir="C:\\Users\\ge63kug\\source\\repos\\tiatoolbox\\HE_SS\\out_data",
+    patch_input_shape=patch_input_shape,
+    stride_shape=stride_shape,
+    #preproc_func=None,
+    auto_get_mask=True,
+    resolution=res,
+    units=un,
+    thres=0.5,
+    #ignore_background=False,
+    #auto_mask_method="morphological",
+    #kernel_size = 128,
+    #min_region_size = 1000,
+)
