@@ -1,5 +1,8 @@
 # Spell checking whitelist for flake8-spellcheck
+1px
 1x1
+20x
+40x
 argmax
 bbox
 binarize
@@ -13,6 +16,8 @@ dataframe
 dataset
 Dataset
 Delaunay
+DICOM
+DNS
 downsample
 downsampled
 dpkg
@@ -61,6 +66,7 @@ pyright
 qtconsole
 resampling
 rescale
+ROI
 runtime
 scipy
 Segmentor
@@ -79,3 +85,6 @@ XY
 YX
 YX
 zarr
+Peter
+Byfield
+Peter554
